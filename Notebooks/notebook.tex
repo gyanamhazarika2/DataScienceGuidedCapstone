@@ -1,0 +1,2639 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{04\_preprocessing\_and\_training}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{4 Pre-Processing and Training
+Data}\label{pre-processing-and-training-data}
+
+    \subsection{4.1 Contents}\label{contents}
+
+\begin{itemize}
+\tightlist
+\item
+  Section \ref{4_pre-processing_and_training_data}
+\item
+  Section \ref{41_contents}
+\item
+  Section \ref{42_introduction}
+\item
+  Section \ref{43_imports}
+\item
+  Section \ref{44_load_data}
+\item
+  Section \ref{45_extract_big_mountain_data}
+\item
+  Section \ref{46_traintest_split}
+\item
+  Section \ref{47_initial_not-even-a-model}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Section \ref{471_metrics}
+  \item
+    Section \ref{4711_r-squared_or_coefficient_of_determination}
+  \item
+    Section \ref{4712_mean_absolute_error}
+  \item
+    Section \ref{4713_mean_squared_error}
+  \item
+    Section \ref{472_sklearn_metrics}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Section \ref{47201_r-squared}
+    \item
+      Section \ref{47202_mean_absolute_error}
+    \item
+      Section \ref{47203_mean_squared_error}
+    \end{itemize}
+  \item
+    Section \ref{473_note_on_calculating_metrics}
+  \end{itemize}
+\item
+  Section \ref{48_initial_models}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Section \ref{481_imputing_missing_feature_predictor_values}
+  \item
+    Section \ref{4811_impute_missing_values_with_median}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Section \ref{48111_learn_the_values_to_impute_from_the_train_set}
+    \item
+      Section \ref{48112_apply_the_imputation_to_both_train_and_test_splits}
+    \item
+      Section \ref{48113_scale_the_data}
+    \item
+      Section \ref{48114_train_the_model_on_the_train_split}
+    \item
+      Section \ref{48115_make_predictions_using_the_model_on_both_train_and_test_splits}
+    \item
+      Section \ref{48116_assess_model_performance}
+    \end{itemize}
+  \item
+    Section \ref{4812_impute_missing_values_with_the_mean}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Section \ref{48121_learn_the_values_to_impute_from_the_train_set}
+    \item
+      Section \ref{48122_apply_the_imputation_to_both_train_and_test_splits}
+    \item
+      Section \ref{48123_scale_the_data}
+    \item
+      Section \ref{48124_train_the_model_on_the_train_split}
+    \item
+      Section \ref{48125_make_predictions_using_the_model_on_both_train_and_test_splits}
+    \item
+      Section \ref{48126_assess_model_performance}
+    \end{itemize}
+  \item
+    Section \ref{482_pipelines}
+  \item
+    Section \ref{4821_define_the_pipeline}
+  \item
+    Section \ref{4822_fit_the_pipeline}
+  \item
+    Section \ref{4823_make_predictions_on_the_train_and_test_sets}
+  \item
+    Section \ref{4824_assess_performance}
+  \end{itemize}
+\item
+  Section \ref{49_refining_the_linear_model}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Section \ref{491_define_the_pipeline}
+  \item
+    Section \ref{492_fit_the_pipeline}
+  \item
+    Section \ref{493_assess_performance_on_the_train_and_test_set}
+  \item
+    Section \ref{494_define_a_new_pipeline_to_select_a_different_number_of_features}
+  \item
+    Section \ref{495_fit_the_pipeline}
+  \item
+    Section \ref{496_assess_performance_on_train_and_test_data}
+  \item
+    Section \ref{497_assessing_performance_using_cross-validation}
+  \item
+    Section \ref{498_hyperparameter_search_using_gridsearchcv}
+  \end{itemize}
+\item
+  Section \ref{410_random_forest_model}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Section \ref{4101_define_the_pipeline}
+  \item
+    Section \ref{4102_fit_and_assess_performance_using_cross-validation}
+  \item
+    Section \ref{4103_hyperparameter_search_using_gridsearchcv}
+  \end{itemize}
+\item
+  Section \ref{411_final_model_selection}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Section \ref{4111_linear_regression_model_performance}
+  \item
+    Section \ref{4112_random_forest_regression_model_performance}
+  \item
+    Section \ref{4113_conclusion}
+  \end{itemize}
+\item
+  Section \ref{412_data_quantity_assessment}
+\item
+  Section \ref{413_save_best_model_object_from_pipeline}
+\item
+  Section \ref{414_summary}
+\end{itemize}
+
+    \subsection{4.2 Introduction}\label{introduction}
+
+    In preceding notebooks, performed preliminary assessments of data
+quality and refined the question to be answered. You found a small
+number of data values that gave clear choices about whether to replace
+values or drop a whole row. You determined that predicting the adult
+weekend ticket price was your primary aim. You threw away records with
+missing price data, but not before making the most of the other
+available data to look for any patterns between the states. You didn't
+see any and decided to treat all states equally; the state label didn't
+seem to be particularly useful.
+
+In this notebook you'll start to build machine learning models. Before
+even starting with learning a machine learning model, however, start by
+considering how useful the mean value is as a predictor. This is more
+than just a pedagogical device. You never want to go to stakeholders
+with a machine learning model only to have the CEO point out that it
+performs worse than just guessing the average! Your first model is a
+baseline performance comparitor for any subsequent model. You then build
+up the process of efficiently and robustly creating and assessing models
+against it. The development we lay out may be little slower than in the
+real world, but this step of the capstone is definitely more than just
+instructional. It is good practice to build up an understanding that the
+machine learning pipelines you build work as expected. You can validate
+steps with your own functions for checking expected equivalence between,
+say, pandas and sklearn implementations.
+
+    \subsection{4.3 Imports}\label{imports}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}} \PY{k}{as} \PY{n}{sklearn\PYZus{}version}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{scale}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{,} \PY{n}{cross\PYZus{}validate}\PY{p}{,} \PY{n}{GridSearchCV}\PY{p}{,} \PY{n}{learning\PYZus{}curve}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}\PY{p}{,} \PY{n}{MinMaxScaler}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{dummy} \PY{k}{import} \PY{n}{DummyRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{r2\PYZus{}score}\PY{p}{,} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{,} \PY{n}{mean\PYZus{}absolute\PYZus{}error}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{make\PYZus{}pipeline}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{impute} \PY{k}{import} \PY{n}{SimpleImputer}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{SelectKBest}\PY{p}{,} \PY{n}{f\PYZus{}regression}
+        \PY{k+kn}{import} \PY{n+nn}{datetime}
+        
+        \PY{k+kn}{from} \PY{n+nn}{library}\PY{n+nn}{.}\PY{n+nn}{sb\PYZus{}utils} \PY{k}{import} \PY{n}{save\PYZus{}file}
+\end{Verbatim}
+
+
+    \subsection{4.4 Load Data}\label{load-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{ski\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/ski\PYZus{}data\PYZus{}step3\PYZus{}features.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ski\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}                                                  0                    1  \textbackslash{}
+        Name                                Alyeska Resort  Eaglecrest Ski Area   
+        Region                                      Alaska               Alaska   
+        state                                       Alaska               Alaska   
+        summit\_elev                                   3939                 2600   
+        vertical\_drop                                 2500                 1540   
+        base\_elev                                      250                 1200   
+        trams                                            1                    0   
+        fastSixes                                        0                    0   
+        fastQuads                                        2                    0   
+        quad                                             2                    0   
+        triple                                           0                    0   
+        double                                           0                    4   
+        surface                                          2                    0   
+        total\_chairs                                     7                    4   
+        Runs                                            76                   36   
+        TerrainParks                                     2                    1   
+        LongestRun\_mi                                    1                    2   
+        SkiableTerrain\_ac                             1610                  640   
+        Snow Making\_ac                                 113                   60   
+        daysOpenLastYear                               150                   45   
+        yearsOpen                                       60                   44   
+        averageSnowfall                                669                  350   
+        AdultWeekend                                    85                   53   
+        projectedDaysOpen                              150                   90   
+        NightSkiing\_ac                                 550                  NaN   
+        resorts\_per\_state                                3                    3   
+        resorts\_per\_100kcapita                    0.410091             0.410091   
+        resorts\_per\_100ksq\_mile                   0.450867             0.450867   
+        resort\_skiable\_area\_ac\_state\_ratio         0.70614             0.280702   
+        resort\_days\_open\_state\_ratio              0.434783             0.130435   
+        resort\_terrain\_park\_state\_ratio                0.5                 0.25   
+        resort\_night\_skiing\_state\_ratio           0.948276                  NaN   
+        total\_chairs\_runs\_ratio                  0.0921053             0.111111   
+        total\_chairs\_skiable\_ratio              0.00434783              0.00625   
+        fastQuads\_runs\_ratio                     0.0263158                    0   
+        fastQuads\_skiable\_ratio                 0.00124224                    0   
+        
+                                                           2                 3  \textbackslash{}
+        Name                                Hilltop Ski Area  Arizona Snowbowl   
+        Region                                        Alaska           Arizona   
+        state                                         Alaska           Arizona   
+        summit\_elev                                     2090             11500   
+        vertical\_drop                                    294              2300   
+        base\_elev                                       1796              9200   
+        trams                                              0                 0   
+        fastSixes                                          0                 1   
+        fastQuads                                          0                 0   
+        quad                                               0                 2   
+        triple                                             1                 2   
+        double                                             0                 1   
+        surface                                            2                 2   
+        total\_chairs                                       3                 8   
+        Runs                                              13                55   
+        TerrainParks                                       1                 4   
+        LongestRun\_mi                                      1                 2   
+        SkiableTerrain\_ac                                 30               777   
+        Snow Making\_ac                                    30               104   
+        daysOpenLastYear                                 150               122   
+        yearsOpen                                         36                81   
+        averageSnowfall                                   69               260   
+        AdultWeekend                                      34                89   
+        projectedDaysOpen                                152               122   
+        NightSkiing\_ac                                    30               NaN   
+        resorts\_per\_state                                  3                 2   
+        resorts\_per\_100kcapita                      0.410091         0.0274774   
+        resorts\_per\_100ksq\_mile                     0.450867           1.75454   
+        resort\_skiable\_area\_ac\_state\_ratio         0.0131579          0.492708   
+        resort\_days\_open\_state\_ratio                0.434783          0.514768   
+        resort\_terrain\_park\_state\_ratio                 0.25          0.666667   
+        resort\_night\_skiing\_state\_ratio            0.0517241               NaN   
+        total\_chairs\_runs\_ratio                     0.230769          0.145455   
+        total\_chairs\_skiable\_ratio                       0.1          0.010296   
+        fastQuads\_runs\_ratio                               0                 0   
+        fastQuads\_skiable\_ratio                            0                 0   
+        
+                                                              4  
+        Name                                Sunrise Park Resort  
+        Region                                          Arizona  
+        state                                           Arizona  
+        summit\_elev                                       11100  
+        vertical\_drop                                      1800  
+        base\_elev                                          9200  
+        trams                                                 0  
+        fastSixes                                             0  
+        fastQuads                                             1  
+        quad                                                  2  
+        triple                                                3  
+        double                                                1  
+        surface                                               0  
+        total\_chairs                                          7  
+        Runs                                                 65  
+        TerrainParks                                          2  
+        LongestRun\_mi                                       1.2  
+        SkiableTerrain\_ac                                   800  
+        Snow Making\_ac                                       80  
+        daysOpenLastYear                                    115  
+        yearsOpen                                            49  
+        averageSnowfall                                     250  
+        AdultWeekend                                         78  
+        projectedDaysOpen                                   104  
+        NightSkiing\_ac                                       80  
+        resorts\_per\_state                                     2  
+        resorts\_per\_100kcapita                        0.0274774  
+        resorts\_per\_100ksq\_mile                         1.75454  
+        resort\_skiable\_area\_ac\_state\_ratio             0.507292  
+        resort\_days\_open\_state\_ratio                   0.485232  
+        resort\_terrain\_park\_state\_ratio                0.333333  
+        resort\_night\_skiing\_state\_ratio                       1  
+        total\_chairs\_runs\_ratio                        0.107692  
+        total\_chairs\_skiable\_ratio                      0.00875  
+        fastQuads\_runs\_ratio                          0.0153846  
+        fastQuads\_skiable\_ratio                         0.00125  
+\end{Verbatim}
+            
+    \subsection{4.5 Extract Big Mountain
+Data}\label{extract-big-mountain-data}
+
+    Big Mountain is your resort. Separate it from the rest of the data to
+use later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{big\PYZus{}mountain} \PY{o}{=} \PY{n}{ski\PYZus{}data}\PY{p}{[}\PY{n}{ski\PYZus{}data}\PY{o}{.}\PY{n}{Name} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Big Mountain Resort}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{big\PYZus{}mountain}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}                                                     124
+        Name                                Big Mountain Resort
+        Region                                          Montana
+        state                                           Montana
+        summit\_elev                                        6817
+        vertical\_drop                                      2353
+        base\_elev                                          4464
+        trams                                                 0
+        fastSixes                                             0
+        fastQuads                                             3
+        quad                                                  2
+        triple                                                6
+        double                                                0
+        surface                                               3
+        total\_chairs                                         14
+        Runs                                                105
+        TerrainParks                                          4
+        LongestRun\_mi                                       3.3
+        SkiableTerrain\_ac                                  3000
+        Snow Making\_ac                                      600
+        daysOpenLastYear                                    123
+        yearsOpen                                            72
+        averageSnowfall                                     333
+        AdultWeekend                                         81
+        projectedDaysOpen                                   123
+        NightSkiing\_ac                                      600
+        resorts\_per\_state                                    11
+        resorts\_per\_100kcapita                          1.02921
+        resorts\_per\_100ksq\_mile                         7.48096
+        resort\_skiable\_area\_ac\_state\_ratio             0.192184
+        resort\_days\_open\_state\_ratio                   0.152416
+        resort\_terrain\_park\_state\_ratio                0.210526
+        resort\_night\_skiing\_state\_ratio                 0.84507
+        total\_chairs\_runs\_ratio                        0.133333
+        total\_chairs\_skiable\_ratio                   0.00466667
+        fastQuads\_runs\_ratio                          0.0285714
+        fastQuads\_skiable\_ratio                           0.001
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{ski\PYZus{}data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} (277, 36)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{ski\PYZus{}data} \PY{o}{=} \PY{n}{ski\PYZus{}data}\PY{p}{[}\PY{n}{ski\PYZus{}data}\PY{o}{.}\PY{n}{Name} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Big Mountain Resort}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{ski\PYZus{}data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} (276, 36)
+\end{Verbatim}
+            
+    \subsection{4.6 Train/Test Split}\label{traintest-split}
+
+    So far, you've treated ski resort data as a single entity. In machine
+learning, when you train your model on all of your data, you end up with
+no data set aside to evaluate model performance. You could keep making
+more and more complex models that fit the data better and better and not
+realise you were overfitting to that one set of samples. By partitioning
+the data into training and testing splits, without letting a model (or
+missing-value imputation) learn anything about the test split, you have
+a somewhat independent assessment of how your model might perform in the
+future. An often overlooked subtlety here is that people all too
+frequently use the test set to assess model performance \emph{and then
+compare multiple models to pick the best}. This means their overall
+model selection process is fitting to one specific data set, now the
+test split. You could keep going, trying to get better and better
+performance on that one data set, but that's where cross-validation
+becomes especially useful. While training models, a test split is very
+useful as a final check on expected future performance.
+
+    What partition sizes would you have with a 70/30 train/test split?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ski\PYZus{}data}\PY{p}{)} \PY{o}{*} \PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ski\PYZus{}data}\PY{p}{)} \PY{o}{*} \PY{o}{.}\PY{l+m+mi}{3}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} (193.2, 82.8)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{ski\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AdultWeekend}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                                                            \PY{n}{ski\PYZus{}data}\PY{o}{.}\PY{n}{AdultWeekend}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} 
+                                                            \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{47}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} ((193, 35), (83, 35))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}                          Name          Region           state  summit\_elev  \textbackslash{}
+         108     Powder Ridge Ski Area       Minnesota       Minnesota          790   
+         96              The Homestead        Michigan        Michigan          900   
+         189     Beech Mountain Resort  North Carolina  North Carolina         5506   
+         232  Solitude Mountain Resort  Salt Lake City            Utah        10488   
+         1         Eaglecrest Ski Area          Alaska          Alaska         2600   
+         
+              vertical\_drop  base\_elev  trams  fastSixes  fastQuads  quad  {\ldots}  \textbackslash{}
+         108            300        500      0          0          0     1  {\ldots}   
+         96             320        580      0          0          0     0  {\ldots}   
+         189            830       4675      0          0          0     3  {\ldots}   
+         232           2494       7994      0          0          4     2  {\ldots}   
+         1             1540       1200      0          0          0     0  {\ldots}   
+         
+              resorts\_per\_100kcapita  resorts\_per\_100ksq\_mile  \textbackslash{}
+         108                0.248243                16.103800   
+         96                 0.250329                25.849412   
+         189                0.057208                11.148479   
+         232                0.374303                14.134775   
+         1                  0.410091                 0.450867   
+         
+              resort\_skiable\_area\_ac\_state\_ratio  resort\_days\_open\_state\_ratio  \textbackslash{}
+         108                            0.038462                      0.065101   
+         96                             0.004276                      0.022760   
+         189                            0.256757                      0.193676   
+         232                            0.051706                      0.114836   
+         1                              0.280702                      0.130435   
+         
+              resort\_terrain\_park\_state\_ratio  resort\_night\_skiing\_state\_ratio  \textbackslash{}
+         108                         0.137931                         0.058824   
+         96                          0.020000                         0.010146   
+         189                         0.111111                         0.283582   
+         232                              NaN                              NaN   
+         1                           0.250000                              NaN   
+         
+              total\_chairs\_runs\_ratio  total\_chairs\_skiable\_ratio  \textbackslash{}
+         108                 0.400000                    0.100000   
+         96                  0.333333                    0.312500   
+         189                 0.470588                    0.084211   
+         232                 0.112500                    0.007500   
+         1                   0.111111                    0.006250   
+         
+              fastQuads\_runs\_ratio  fastQuads\_skiable\_ratio  
+         108                  0.00                 0.000000  
+         96                   0.00                 0.000000  
+         189                  0.00                 0.000000  
+         232                  0.05                 0.003333  
+         1                    0.00                 0.000000  
+         
+         [5 rows x 35 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} ((193,), (83,))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{y\PYZus{}train}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 108     48.0
+         96      50.0
+         189     68.0
+         232    119.0
+         1       53.0
+                {\ldots}  
+         23      89.0
+         180     55.0
+         72      71.0
+         265     47.0
+         136     58.0
+         Name: AdultWeekend, Length: 193, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}Code task 1\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Save the \PYZsq{}Name\PYZsq{}, \PYZsq{}state\PYZsq{}, and \PYZsq{}Region\PYZsq{} columns from the train/test data into names\PYZus{}train and names\PYZus{}test}
+         \PY{c+c1}{\PYZsh{}Then drop those columns from `X\PYZus{}train` and `X\PYZus{}test`. Use \PYZsq{}inplace=True\PYZsq{}}
+         \PY{n}{names\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{names\PYZus{}train} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{names\PYZus{}list}\PY{p}{]}
+         \PY{n}{names\PYZus{}test} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{names\PYZus{}list}\PY{p}{]}
+         \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{names\PYZus{}list}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{names\PYZus{}list}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} ((193, 32), (83, 32))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}      summit\_elev  vertical\_drop  base\_elev  trams  fastSixes  fastQuads  quad  \textbackslash{}
+         108          790            300        500      0          0          0     1   
+         96           900            320        580      0          0          0     0   
+         189         5506            830       4675      0          0          0     3   
+         232        10488           2494       7994      0          0          4     2   
+         1           2600           1540       1200      0          0          0     0   
+         
+              triple  double  surface  {\ldots}  resorts\_per\_100kcapita  \textbackslash{}
+         108       0       2        3  {\ldots}                0.248243   
+         96        2       1        2  {\ldots}                0.250329   
+         189       0       3        2  {\ldots}                0.057208   
+         232       1       1        1  {\ldots}                0.374303   
+         1         0       4        0  {\ldots}                0.410091   
+         
+              resorts\_per\_100ksq\_mile  resort\_skiable\_area\_ac\_state\_ratio  \textbackslash{}
+         108                16.103800                            0.038462   
+         96                 25.849412                            0.004276   
+         189                11.148479                            0.256757   
+         232                14.134775                            0.051706   
+         1                   0.450867                            0.280702   
+         
+              resort\_days\_open\_state\_ratio  resort\_terrain\_park\_state\_ratio  \textbackslash{}
+         108                      0.065101                         0.137931   
+         96                       0.022760                         0.020000   
+         189                      0.193676                         0.111111   
+         232                      0.114836                              NaN   
+         1                        0.130435                         0.250000   
+         
+              resort\_night\_skiing\_state\_ratio  total\_chairs\_runs\_ratio  \textbackslash{}
+         108                         0.058824                 0.400000   
+         96                          0.010146                 0.333333   
+         189                         0.283582                 0.470588   
+         232                              NaN                 0.112500   
+         1                                NaN                 0.111111   
+         
+              total\_chairs\_skiable\_ratio  fastQuads\_runs\_ratio  fastQuads\_skiable\_ratio  
+         108                    0.100000                  0.00                 0.000000  
+         96                     0.312500                  0.00                 0.000000  
+         189                    0.084211                  0.00                 0.000000  
+         232                    0.007500                  0.05                 0.003333  
+         1                      0.006250                  0.00                 0.000000  
+         
+         [5 rows x 32 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}Code task 2\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Check the `dtypes` attribute of `X\PYZus{}train` to verify all features are numeric}
+         \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} summit\_elev                             int64
+         vertical\_drop                           int64
+         base\_elev                               int64
+         trams                                   int64
+         fastSixes                               int64
+         fastQuads                               int64
+         quad                                    int64
+         triple                                  int64
+         double                                  int64
+         surface                                 int64
+         total\_chairs                            int64
+         Runs                                  float64
+         TerrainParks                          float64
+         LongestRun\_mi                         float64
+         SkiableTerrain\_ac                     float64
+         Snow Making\_ac                        float64
+         daysOpenLastYear                      float64
+         yearsOpen                             float64
+         averageSnowfall                       float64
+         projectedDaysOpen                     float64
+         NightSkiing\_ac                        float64
+         resorts\_per\_state                       int64
+         resorts\_per\_100kcapita                float64
+         resorts\_per\_100ksq\_mile               float64
+         resort\_skiable\_area\_ac\_state\_ratio    float64
+         resort\_days\_open\_state\_ratio          float64
+         resort\_terrain\_park\_state\_ratio       float64
+         resort\_night\_skiing\_state\_ratio       float64
+         total\_chairs\_runs\_ratio               float64
+         total\_chairs\_skiable\_ratio            float64
+         fastQuads\_runs\_ratio                  float64
+         fastQuads\_skiable\_ratio               float64
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}Code task 3\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Repeat this check for the test split in `X\PYZus{}test`}
+         \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} summit\_elev                             int64
+         vertical\_drop                           int64
+         base\_elev                               int64
+         trams                                   int64
+         fastSixes                               int64
+         fastQuads                               int64
+         quad                                    int64
+         triple                                  int64
+         double                                  int64
+         surface                                 int64
+         total\_chairs                            int64
+         Runs                                  float64
+         TerrainParks                          float64
+         LongestRun\_mi                         float64
+         SkiableTerrain\_ac                     float64
+         Snow Making\_ac                        float64
+         daysOpenLastYear                      float64
+         yearsOpen                             float64
+         averageSnowfall                       float64
+         projectedDaysOpen                     float64
+         NightSkiing\_ac                        float64
+         resorts\_per\_state                       int64
+         resorts\_per\_100kcapita                float64
+         resorts\_per\_100ksq\_mile               float64
+         resort\_skiable\_area\_ac\_state\_ratio    float64
+         resort\_days\_open\_state\_ratio          float64
+         resort\_terrain\_park\_state\_ratio       float64
+         resort\_night\_skiing\_state\_ratio       float64
+         total\_chairs\_runs\_ratio               float64
+         total\_chairs\_skiable\_ratio            float64
+         fastQuads\_runs\_ratio                  float64
+         fastQuads\_skiable\_ratio               float64
+         dtype: object
+\end{Verbatim}
+            
+    You have only numeric features in your X now!
+
+    \subsection{4.7 Initial
+Not-Even-A-Model}\label{initial-not-even-a-model}
+
+    A good place to start is to see how good the mean is as a predictor. In
+other words, what if you simply say your best guess is the average
+price?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}Code task 4\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Calculate the mean of `y\PYZus{}train`}
+         \PY{n}{train\PYZus{}mean} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{train\PYZus{}mean}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} 63.811088082901556
+\end{Verbatim}
+            
+    \texttt{sklearn}'s \texttt{DummyRegressor} easily does this:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}Code task 5\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Fit the dummy regressor on the training data}
+         \PY{c+c1}{\PYZsh{}Hint, call its `.fit()` method with `X\PYZus{}train` and `y\PYZus{}train` as arguments}
+         \PY{c+c1}{\PYZsh{}Then print the object\PYZsq{}s `constant\PYZus{}` attribute and verify it\PYZsq{}s the same as the mean above}
+         \PY{n}{dumb\PYZus{}reg} \PY{o}{=} \PY{n}{DummyRegressor}\PY{p}{(}\PY{n}{strategy}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{dumb\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{dumb\PYZus{}reg}\PY{o}{.}\PY{n}{constant\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} array([[63.81108808]])
+\end{Verbatim}
+            
+    How good is this? How closely does this match, or explain, the actual
+values? There are many ways of assessing how good one set of values
+agrees with another, which brings us to the subject of metrics.
+
+    \subsubsection{4.7.1 Metrics}\label{metrics}
+
+    \paragraph{4.7.1.1 R-squared, or coefficient of
+determination}\label{r-squared-or-coefficient-of-determination}
+
+    One measure is \(R^2\), the
+\href{https://en.wikipedia.org/wiki/Coefficient_of_determination}{coefficient
+of determination}. This is a measure of the proportion of variance in
+the dependent variable (our ticket price) that is predicted by our
+"model". The linked Wikipedia articles gives a nice explanation of how
+negative values can arise. This is frequently a cause of confusion for
+newcomers who, reasonably, ask how can a squared value be negative?
+
+Recall the mean can be denoted by \(\bar{y}\), where
+
+\[\bar{y} = \frac{1}{n}\sum_{i=1}^ny_i\]
+
+and where \(y_i\) are the individual values of the dependent variable.
+
+The total sum of squares (error), can be expressed as
+
+\[SS_{tot} = \sum_i(y_i-\bar{y})^2\]
+
+The above formula should be familiar as it's simply the variance without
+the denominator to scale (divide) by the sample size.
+
+The residual sum of squares is similarly defined to be
+
+\[SS_{res} = \sum_i(y_i-\hat{y})^2\]
+
+where \(\hat{y}\) are our predicted values for the depended variable.
+
+The coefficient of determination, \(R^2\), here is given by
+
+\[R^2 = 1 - \frac{SS_{res}}{SS_{tot}}\]
+
+Putting it into words, it's one minus the ratio of the residual variance
+to the original variance. Thus, the baseline model here, which always
+predicts \(\bar{y}\), should give \(R^2=0\). A model that perfectly
+predicts the observed values would have no residual error and so give
+\(R^2=1\). Models that do worse than predicting the mean will have
+increased the sum of squares of residuals and so produce a negative
+\(R^2\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}Code task 6\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Calculate the R\PYZca{}2 as defined above}
+         \PY{k}{def} \PY{n+nf}{r\PYZus{}squared}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{ypred}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}R\PYZhy{}squared score.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Calculate the R\PYZhy{}squared, or coefficient of determination, of the input.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Arguments:}
+         \PY{l+s+sd}{    y \PYZhy{}\PYZhy{} the observed values}
+         \PY{l+s+sd}{    ypred \PYZhy{}\PYZhy{} the predicted values}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{ybar} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{c+c1}{\PYZsh{}yes, we could use np.mean(y)}
+             \PY{n}{sum\PYZus{}sq\PYZus{}tot} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{ybar}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} \PY{c+c1}{\PYZsh{}total sum of squares error}
+             \PY{n}{sum\PYZus{}sq\PYZus{}res} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{ypred}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} \PY{c+c1}{\PYZsh{}residual sum of squares error}
+             \PY{n}{R2} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{sum\PYZus{}sq\PYZus{}res} \PY{o}{/} \PY{n}{sum\PYZus{}sq\PYZus{}tot}\PY{p}{)}
+             \PY{k}{return} \PY{n}{R2}
+\end{Verbatim}
+
+
+    Make your predictions by creating an array of length the size of the
+training set with the single value of the mean.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{y\PYZus{}tr\PYZus{}pred\PYZus{}} \PY{o}{=} \PY{n}{train\PYZus{}mean} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n}{y\PYZus{}tr\PYZus{}pred\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} array([63.81108808, 63.81108808, 63.81108808, 63.81108808, 63.81108808])
+\end{Verbatim}
+            
+    Remember the \texttt{sklearn} dummy regressor?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{y\PYZus{}tr\PYZus{}pred} \PY{o}{=} \PY{n}{dumb\PYZus{}reg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} array([63.81108808, 63.81108808, 63.81108808, 63.81108808, 63.81108808])
+\end{Verbatim}
+            
+    You can see that \texttt{DummyRegressor} produces exactly the same
+results and saves you having to mess about broadcasting the mean (or
+whichever other statistic we used - check out the
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyRegressor.html}{documentation}
+to see what's available) to an array of the appropriate length. It also
+gives you an object with \texttt{fit()} and \texttt{predict()} methods
+as well so you can use them as conveniently as any other
+\texttt{sklearn} estimator.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{r\PYZus{}squared}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} 0.0
+\end{Verbatim}
+            
+    Exactly as expected, if you use the average value as your prediction,
+you get an \(R^2\) of zero \emph{on our training set}. What if you use
+this "model" to predict unseen values from the test set? Remember, of
+course, that your "model" is trained on the training set; you still use
+the training set mean as your prediction.
+
+    Make your predictions by creating an array of length the size of the
+test set with the single value of the (training) mean.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{y\PYZus{}te\PYZus{}pred} \PY{o}{=} \PY{n}{train\PYZus{}mean} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+         \PY{n}{r\PYZus{}squared}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} -0.0031235200417913944
+\end{Verbatim}
+            
+    Generally, you can expect performance on a test set to be slightly worse
+than on the training set. As you are getting an \(R^2\) of zero on the
+training set, there's nowhere to go but negative!
+
+    \(R^2\) is a common metric, and interpretable in terms of the amount of
+variance explained, it's less appealing if you want an idea of how
+"close" your predictions are to the true values. Metrics that summarise
+the difference between predicted and actual values are \emph{mean
+absolute error} and \emph{mean squared error}.
+
+    \paragraph{4.7.1.2 Mean Absolute Error}\label{mean-absolute-error}
+
+    This is very simply the average of the absolute errors:
+
+\[MAE = \frac{1}{n}\sum_i^n|y_i - \hat{y}|\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{}Code task 7\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Calculate the MAE as defined above}
+         \PY{k}{def} \PY{n+nf}{mae}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{ypred}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Mean absolute error.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Calculate the mean absolute error of the arguments}
+         
+         \PY{l+s+sd}{    Arguments:}
+         \PY{l+s+sd}{    y \PYZhy{}\PYZhy{} the observed values}
+         \PY{l+s+sd}{    ypred \PYZhy{}\PYZhy{} the predicted values}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{abs\PYZus{}error} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{ypred}\PY{p}{)}
+             \PY{n}{mae} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{abs\PYZus{}error}\PY{p}{)}
+             \PY{k}{return} \PY{n}{mae}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{mae}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} 17.923463717146785
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{mae}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} 19.136142081278486
+\end{Verbatim}
+            
+    Mean absolute error is arguably the most intuitive of all the metrics,
+this essentially tells you that, on average, you might expect to be off
+by around \textbackslash{}\$19 if you guessed ticket price based on an
+average of known values.
+
+    \paragraph{4.7.1.3 Mean Squared Error}\label{mean-squared-error}
+
+    Another common metric (and an important one internally for optimizing
+machine learning models) is the mean squared error. This is simply the
+average of the square of the errors:
+
+\[MSE = \frac{1}{n}\sum_i^n(y_i - \hat{y})^2\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}Code task 8\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Calculate the MSE as defined above}
+         \PY{k}{def} \PY{n+nf}{mse}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{ypred}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Mean square error.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Calculate the mean square error of the arguments}
+         
+         \PY{l+s+sd}{    Arguments:}
+         \PY{l+s+sd}{    y \PYZhy{}\PYZhy{} the observed values}
+         \PY{l+s+sd}{    ypred \PYZhy{}\PYZhy{} the predicted values}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{sq\PYZus{}error} \PY{o}{=} \PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{ypred}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+             \PY{n}{mse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{sq\PYZus{}error}\PY{p}{)}
+             \PY{k}{return} \PY{n}{mse}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{mse}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 614.1334096969057
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{mse}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} 581.4365441953481
+\end{Verbatim}
+            
+    So here, you get a slightly better MSE on the test set than you did on
+the train set. And what does a squared error mean anyway? To convert
+this back to our measurement space, we often take the square root, to
+form the \emph{root mean square error} thus:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{[}\PY{n}{mse}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{mse}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} array([24.78171523, 24.11299534])
+\end{Verbatim}
+            
+    \subsubsection{4.7.2 sklearn metrics}\label{sklearn-metrics}
+
+    Functions are good, but you don't want to have to define functions every
+time we want to assess performance. \texttt{sklearn.metrics} provides
+many commonly used metrics, included the ones above.
+
+    \subparagraph{4.7.2.0.1 R-squared}\label{r-squared}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} (0.0, -0.0031235200417913944)
+\end{Verbatim}
+            
+    \subparagraph{4.7.2.0.2 Mean absolute error}\label{mean-absolute-error}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} (17.92346371714677, 19.136142081278486)
+\end{Verbatim}
+            
+    \subparagraph{4.7.2.0.3 Mean squared error}\label{mean-squared-error}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} (614.1334096969046, 581.4365441953483)
+\end{Verbatim}
+            
+    \subsubsection{4.7.3 Note On Calculating
+Metrics}\label{note-on-calculating-metrics}
+
+    When calling functions to calculate metrics, it is important to take
+care in the order of the arguments. Two of the metrics above actually
+don't care if the arguments are reversed; one does. Which one cares?
+
+    In a Jupyter code cell, running \texttt{r2\_score?} will bring up the
+docstring for the function, and \texttt{r2\_score??} will bring up the
+actual code of the function! Try them and compare the source for
+\texttt{sklearn}'s function with yours. Feel free to explore what
+happens when you reverse the order of the arguments and compare
+behaviour of \texttt{sklearn}'s function and yours.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} train set \PYZhy{} sklearn}
+         \PY{c+c1}{\PYZsh{} correct order, incorrect order}
+         \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} (0.0, -3.041041349306602e+30)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} test set \PYZhy{} sklearn}
+         \PY{c+c1}{\PYZsh{} correct order, incorrect order}
+         \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} (-0.0031235200417913944, 0.0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} train set \PYZhy{} using our homebrew function}
+         \PY{c+c1}{\PYZsh{} correct order, incorrect order}
+         \PY{n}{r\PYZus{}squared}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{r\PYZus{}squared}\PY{p}{(}\PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} (0.0, -3.041041349306602e+30)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} test set \PYZhy{} using our homebrew function}
+         \PY{c+c1}{\PYZsh{} correct order, incorrect order}
+         \PY{n}{r\PYZus{}squared}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{r\PYZus{}squared}\PY{p}{(}\PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}gyhazarika\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Continuum\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:15: RuntimeWarning: divide by zero encountered in double\_scalars
+  from ipykernel import kernelapp as app
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} (-0.0031235200417913944, -inf)
+\end{Verbatim}
+            
+    You can get very different results swapping the argument order. It's
+worth highlighting this because data scientists do this too much in the
+real world! Don't be one of them! Frequently the argument order doesn't
+matter, but it will bite you when you do it with a function that does
+care. It's sloppy, bad practice and if you don't make a habit of putting
+arguments in the right order, you will forget!
+
+Remember: * argument order matters, * check function syntax with
+\texttt{func?} in a code cell
+
+    \subsection{4.8 Initial Models}\label{initial-models}
+
+    \subsubsection{4.8.1 Imputing missing feature (predictor)
+values}\label{imputing-missing-feature-predictor-values}
+
+    Recall when performing EDA, you imputed (filled in) some missing values
+in pandas. You did this judiciously for exploratory/visualization
+purposes. You left many missing values in the data. You can impute
+missing values using scikit-learn, but note that you should learn values
+to impute from a train split and apply that to the test split to then
+assess how well your imputation worked.
+
+    \paragraph{4.8.1.1 Impute missing values with
+median}\label{impute-missing-values-with-median}
+
+    There's missing values. Recall from your data exploration that many
+distributions were skewed. Your first thought might be to impute missing
+values using the median.
+
+    \subparagraph{4.8.1.1.1 Learn the values to impute from the train
+set}\label{learn-the-values-to-impute-from-the-train-set}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} These are the values we\PYZsq{}ll use to fill in any missing values}
+         \PY{n}{X\PYZus{}defaults\PYZus{}median} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}defaults\PYZus{}median}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} summit\_elev                           2215.000000
+         vertical\_drop                          750.000000
+         base\_elev                             1300.000000
+         trams                                    0.000000
+         fastSixes                                0.000000
+         fastQuads                                0.000000
+         quad                                     1.000000
+         triple                                   1.000000
+         double                                   1.000000
+         surface                                  2.000000
+         total\_chairs                             7.000000
+         Runs                                    28.000000
+         TerrainParks                             2.000000
+         LongestRun\_mi                            1.000000
+         SkiableTerrain\_ac                      170.000000
+         Snow Making\_ac                          96.500000
+         daysOpenLastYear                       109.000000
+         yearsOpen                               57.000000
+         averageSnowfall                        120.000000
+         projectedDaysOpen                      115.000000
+         NightSkiing\_ac                          70.000000
+         resorts\_per\_state                       14.000000
+         resorts\_per\_100kcapita                   0.240449
+         resorts\_per\_100ksq\_mile                 16.508461
+         resort\_skiable\_area\_ac\_state\_ratio       0.064103
+         resort\_days\_open\_state\_ratio             0.081710
+         resort\_terrain\_park\_state\_ratio          0.090909
+         resort\_night\_skiing\_state\_ratio          0.087805
+         total\_chairs\_runs\_ratio                  0.200000
+         total\_chairs\_skiable\_ratio               0.040323
+         fastQuads\_runs\_ratio                     0.000000
+         fastQuads\_skiable\_ratio                  0.000000
+         dtype: float64
+\end{Verbatim}
+            
+    \subparagraph{4.8.1.1.2 Apply the imputation to both train and test
+splits}\label{apply-the-imputation-to-both-train-and-test-splits}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{}Code task 9\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Call `X\PYZus{}train` and `X\PYZus{}test`\PYZsq{}s `fillna()` method, passing `X\PYZus{}defaults\PYZus{}median` as the values to use}
+         \PY{c+c1}{\PYZsh{}Assign the results to `X\PYZus{}tr` and `X\PYZus{}te`, respectively}
+         \PY{n}{X\PYZus{}tr} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{X\PYZus{}defaults\PYZus{}median}\PY{p}{)}
+         \PY{n}{X\PYZus{}te} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{X\PYZus{}defaults\PYZus{}median}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{4.8.1.1.3 Scale the data}\label{scale-the-data}
+
+    As you have features measured in many different units, with numbers that
+vary by orders of magnitude, start off by scaling them to put them all
+on a consistent scale. The
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html}{StandardScaler}
+scales each feature to zero mean and unit variance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{}Code task 10\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Call the StandardScaler`s fit method on `X\PYZus{}tr` to fit the scaler}
+         \PY{c+c1}{\PYZsh{}then use it\PYZsq{}s `transform()` method to apply the scaling to both the train and test split}
+         \PY{c+c1}{\PYZsh{}data (`X\PYZus{}tr` and `X\PYZus{}te`), naming the results `X\PYZus{}tr\PYZus{}scaled` and `X\PYZus{}te\PYZus{}scaled`, respectively}
+         \PY{n}{scaler} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+         \PY{n}{scaler}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}tr}\PY{p}{)}
+         \PY{n}{X\PYZus{}tr\PYZus{}scaled} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}tr}\PY{p}{)}
+         \PY{n}{X\PYZus{}te\PYZus{}scaled} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}te}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{4.8.1.1.4 Train the model on the train
+split}\label{train-the-model-on-the-train-split}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{lm} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}tr\PYZus{}scaled}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{4.8.1.1.5 Make predictions using the model on both train
+and test
+splits}\label{make-predictions-using-the-model-on-both-train-and-test-splits}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{}Code task 11\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Call the `predict()` method of the model (`lm`) on both the (scaled) train and test data}
+         \PY{c+c1}{\PYZsh{}Assign the predictions to `y\PYZus{}tr\PYZus{}pred` and `y\PYZus{}te\PYZus{}pred`, respectively}
+         \PY{n}{y\PYZus{}tr\PYZus{}pred} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}tr\PYZus{}scaled}\PY{p}{)}
+         \PY{n}{y\PYZus{}te\PYZus{}pred} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}te\PYZus{}scaled}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{4.8.1.1.6 Assess model
+performance}\label{assess-model-performance}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} r\PYZca{}2 \PYZhy{} train, test}
+         \PY{n}{median\PYZus{}r2} \PY{o}{=} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+         \PY{n}{median\PYZus{}r2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} (0.8202944748175386, 0.7127828086489635)
+\end{Verbatim}
+            
+    Recall that you estimated ticket price by simply using a known average.
+As expected, this produced an \(R^2\) of zero for both the training and
+test set, because \(R^2\) tells us how much of the variance you're
+explaining beyond that of using just the mean, and you were using just
+the mean. Here we see that our simple linear regression model explains
+over 80\% of the variance on the train set and over 70\% on the test
+set. Clearly you are onto something, although the much lower value for
+the test set suggests you're overfitting somewhat. This isn't a surprise
+as you've made no effort to select a parsimonious set of features or
+deal with multicollinearity in our data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{}Code task 12\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Now calculate the mean absolute error scores using `sklearn`\PYZsq{}s `mean\PYZus{}absolute\PYZus{}error` function}
+         \PY{c+c1}{\PYZsh{} as we did above for R\PYZca{}2}
+         \PY{c+c1}{\PYZsh{} MAE \PYZhy{} train, test}
+         \PY{n}{median\PYZus{}mae} \PY{o}{=} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+         \PY{n}{median\PYZus{}mae}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} (8.518515955068468, 9.441831036848503)
+\end{Verbatim}
+            
+    Using this model, then, on average you'd expect to estimate a ticket
+price within \textbackslash{}\$9 or so of the real price. This is much,
+much better than the \textbackslash{}\$19 from just guessing using the
+average. There may be something to this machine learning lark after all!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{}Code task 13\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}And also do the same using `sklearn`\PYZsq{}s `mean\PYZus{}squared\PYZus{}error`}
+         \PY{c+c1}{\PYZsh{} MSE \PYZhy{} train, test}
+         \PY{n}{median\PYZus{}mse} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+         \PY{n}{median\PYZus{}mse}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} (110.363166921678, 166.4785720164187)
+\end{Verbatim}
+            
+    \paragraph{4.8.1.2 Impute missing values with the
+mean}\label{impute-missing-values-with-the-mean}
+
+    You chose to use the median for filling missing values because of the
+skew of many of our predictor feature distributions. What if you wanted
+to try something else, such as the mean?
+
+    \subparagraph{4.8.1.2.1 Learn the values to impute from the train
+set}\label{learn-the-values-to-impute-from-the-train-set}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{}Code task 14\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}As we did for the median above, calculate mean values for imputing missing values}
+         \PY{c+c1}{\PYZsh{} These are the values we\PYZsq{}ll use to fill in any missing values}
+         \PY{n}{X\PYZus{}defaults\PYZus{}mean} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}defaults\PYZus{}mean}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} summit\_elev                           4074.554404
+         vertical\_drop                         1043.196891
+         base\_elev                             3020.512953
+         trams                                    0.103627
+         fastSixes                                0.072539
+         fastQuads                                0.673575
+         quad                                     1.010363
+         triple                                   1.440415
+         double                                   1.813472
+         surface                                  2.497409
+         total\_chairs                             7.611399
+         Runs                                    41.188482
+         TerrainParks                             2.434783
+         LongestRun\_mi                            1.293122
+         SkiableTerrain\_ac                      448.785340
+         Snow Making\_ac                         129.601190
+         daysOpenLastYear                       110.100629
+         yearsOpen                               56.559585
+         averageSnowfall                        162.310160
+         projectedDaysOpen                      115.920245
+         NightSkiing\_ac                          86.384615
+         resorts\_per\_state                       14.518135
+         resorts\_per\_100kcapita                   0.351899
+         resorts\_per\_100ksq\_mile                 35.690324
+         resort\_skiable\_area\_ac\_state\_ratio       0.109497
+         resort\_days\_open\_state\_ratio             0.144236
+         resort\_terrain\_park\_state\_ratio          0.134344
+         resort\_night\_skiing\_state\_ratio          0.174531
+         total\_chairs\_runs\_ratio                  0.271441
+         total\_chairs\_skiable\_ratio               0.070483
+         fastQuads\_runs\_ratio                     0.010401
+         fastQuads\_skiable\_ratio                  0.001633
+         dtype: float64
+\end{Verbatim}
+            
+    By eye, you can immediately tell that your replacement values are much
+higher than those from using the median.
+
+    \subparagraph{4.8.1.2.2 Apply the imputation to both train and test
+splits}\label{apply-the-imputation-to-both-train-and-test-splits}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{X\PYZus{}tr} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{X\PYZus{}defaults\PYZus{}mean}\PY{p}{)}
+         \PY{n}{X\PYZus{}te} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{X\PYZus{}defaults\PYZus{}mean}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{4.8.1.2.3 Scale the data}\label{scale-the-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{scaler} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+         \PY{n}{scaler}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}tr}\PY{p}{)}
+         \PY{n}{X\PYZus{}tr\PYZus{}scaled} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}tr}\PY{p}{)}
+         \PY{n}{X\PYZus{}te\PYZus{}scaled} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}te}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{4.8.1.2.4 Train the model on the train
+split}\label{train-the-model-on-the-train-split}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{lm} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}tr\PYZus{}scaled}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{4.8.1.2.5 Make predictions using the model on both train
+and test
+splits}\label{make-predictions-using-the-model-on-both-train-and-test-splits}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{y\PYZus{}tr\PYZus{}pred} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}tr\PYZus{}scaled}\PY{p}{)}
+         \PY{n}{y\PYZus{}te\PYZus{}pred} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}te\PYZus{}scaled}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{4.8.1.2.6 Assess model
+performance}\label{assess-model-performance}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} (0.8193701248472637, 0.7098970868386896)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} (8.541326227293274, 9.438374036159757)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} (110.93084112067612, 168.15121161000027)
+\end{Verbatim}
+            
+    These results don't seem very different to when you used the median for
+imputing missing values. Perhaps it doesn't make much difference here.
+Maybe your overtraining dominates. Maybe other feature transformations,
+such as taking the log, would help. You could try with just a subset of
+features rather than using all of them as inputs.
+
+To perform the median/mean comparison, you copied and pasted a lot of
+code just to change the function for imputing missing values. It would
+make more sense to write a function that performed the sequence of
+steps: 1. impute missing values 2. scale the features 3. train a model
+4. calculate model performance
+
+But these are common steps and \texttt{sklearn} provides something much
+better than writing custom functions.
+
+    \subsubsection{4.8.2 Pipelines}\label{pipelines}
+
+    One of the most important and useful components of \texttt{sklearn} is
+the
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html}{pipeline}.
+In place of \texttt{panda}'s \texttt{fillna} DataFrame method, there is
+\texttt{sklearn}'s \texttt{SimpleImputer}. Remember the first linear
+model above performed the steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  replace missing values with the median for each feature
+\item
+  scale the data to zero mean and unit variance
+\item
+  train a linear regression model
+\end{enumerate}
+
+and all these steps were trained on the train split and then applied to
+the test split for assessment.
+
+The pipeline below defines exactly those same steps. Crucially, the
+resultant \texttt{Pipeline} object has a \texttt{fit()} method and a
+\texttt{predict()} method, just like the \texttt{LinearRegression()}
+object itself. Just as you might create a linear regression model and
+train it with \texttt{.fit()} and predict with \texttt{.predict()}, you
+can wrap the entire process of imputing and feature scaling and
+regression in a single object you can train with \texttt{.fit()} and
+predict with \texttt{.predict()}. And that's basically a pipeline: a
+model on steroids.
+
+    \paragraph{4.8.2.1 Define the pipeline}\label{define-the-pipeline}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{pipe} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}
+             \PY{n}{SimpleImputer}\PY{p}{(}\PY{n}{strategy}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{median}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+             \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+             \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{pipe}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} sklearn.pipeline.Pipeline
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n+nb}{hasattr}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n+nb}{hasattr}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} (True, True)
+\end{Verbatim}
+            
+    \paragraph{4.8.2.2 Fit the pipeline}\label{fit-the-pipeline}
+
+    Here, a single call to the pipeline's \texttt{fit()} method combines the
+steps of learning the imputation (determining what values to use to fill
+the missing ones), the scaling (determining the mean to subtract and the
+variance to divide by), and then training the model. It does this all in
+the one call with the training data as arguments.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{}Code task 15\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Call the pipe\PYZsq{}s `fit()` method with `X\PYZus{}train` and `y\PYZus{}train` as arguments}
+         \PY{n}{pipe}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} Pipeline(steps=[('simpleimputer', SimpleImputer(strategy='median')),
+                         ('standardscaler', StandardScaler()),
+                         ('linearregression', LinearRegression())])
+\end{Verbatim}
+            
+    \paragraph{4.8.2.3 Make predictions on the train and test
+sets}\label{make-predictions-on-the-train-and-test-sets}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{y\PYZus{}tr\PYZus{}pred} \PY{o}{=} \PY{n}{pipe}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}te\PYZus{}pred} \PY{o}{=} \PY{n}{pipe}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{4.8.2.4 Assess performance}\label{assess-performance}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} (0.8202944748175386, 0.7127828086489635)
+\end{Verbatim}
+            
+    And compare with your earlier (non-pipeline) result:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{median\PYZus{}r2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} (0.8202944748175386, 0.7127828086489635)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} (8.518515955068468, 9.441831036848503)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{Compare} \PY{k}{with} \PY{n}{your} \PY{n}{earlier} \PY{n}{result}\PY{p}{:}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+          File "<ipython-input-67-441b87b2c3ea>", line 1
+        Compare with your earlier result:
+                   \^{}
+    SyntaxError: invalid syntax
+    
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{median\PYZus{}mae}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}69}]:} (8.518515955068468, 9.441831036848503)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}70}]:} (110.363166921678, 166.4785720164187)
+\end{Verbatim}
+            
+    Compare with your earlier result:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{median\PYZus{}mse}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} (110.363166921678, 166.4785720164187)
+\end{Verbatim}
+            
+    These results confirm the pipeline is doing exactly what's expected, and
+results are identical to your earlier steps. This allows you to move
+faster but with confidence.
+
+    \subsection{4.9 Refining The Linear
+Model}\label{refining-the-linear-model}
+
+    You suspected the model was overfitting. This is no real surprise given
+the number of features you blindly used. It's likely a judicious subset
+of features would generalize better. \texttt{sklearn} has a number of
+feature selection functions available. The one you'll use here is
+\texttt{SelectKBest} which, as you might guess, selects the k best
+features. You can read about SelectKBest
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html\#sklearn.feature_selection.SelectKBest}{here}.
+\texttt{f\_regression} is just the
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.f_regression.html\#sklearn.feature_selection.f_regression}{score
+function} you're using because you're performing regression. It's
+important to choose an appropriate one for your machine learning task.
+
+    \subsubsection{4.9.1 Define the pipeline}\label{define-the-pipeline}
+
+    Redefine your pipeline to include this feature selection step:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{}Code task 16\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Add `SelectKBest` as a step in the pipeline between `StandardScaler()` and `LinearRegression()`}
+         \PY{c+c1}{\PYZsh{}Don\PYZsq{}t forget to tell it to use `f\PYZus{}regression` as its score function}
+         \PY{n}{pipe} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}
+             \PY{n}{SimpleImputer}\PY{p}{(}\PY{n}{strategy}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{median}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+             \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{SelectKBest}\PY{p}{(}\PY{n}{f\PYZus{}regression}\PY{p}{)}\PY{p}{,}
+             \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{4.9.2 Fit the pipeline}\label{fit-the-pipeline}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{pipe}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} Pipeline(steps=[('simpleimputer', SimpleImputer(strategy='median')),
+                         ('standardscaler', StandardScaler()),
+                         ('selectkbest',
+                          SelectKBest(score\_func=<function f\_regression at 0x000001BDFFB16598>)),
+                         ('linearregression', LinearRegression())])
+\end{Verbatim}
+            
+    \subsubsection{4.9.3 Assess performance on the train and test
+set}\label{assess-performance-on-the-train-and-test-set}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{y\PYZus{}tr\PYZus{}pred} \PY{o}{=} \PY{n}{pipe}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}te\PYZus{}pred} \PY{o}{=} \PY{n}{pipe}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:} (0.7674914326052744, 0.6259877354190834)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:} (9.501495079727485, 11.201830190332057)
+\end{Verbatim}
+            
+    This has made things worse! Clearly selecting a subset of features has
+an impact on performance. \texttt{SelectKBest} defaults to k=10. You've
+just seen that 10 is worse than using all features. What is the best k?
+You could create a new pipeline with a different value of k:
+
+    \subsubsection{4.9.4 Define a new pipeline to select a different number
+of
+features}\label{define-a-new-pipeline-to-select-a-different-number-of-features}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{c+c1}{\PYZsh{}Code task 17\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Modify the `SelectKBest` step to use a value of 15 for k}
+         \PY{n}{pipe15} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}
+             \PY{n}{SimpleImputer}\PY{p}{(}\PY{n}{strategy}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{median}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+             \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{SelectKBest}\PY{p}{(}\PY{n}{f\PYZus{}regression}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{,}
+             \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{4.9.5 Fit the pipeline}\label{fit-the-pipeline}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{pipe15}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}79}]:} Pipeline(steps=[('simpleimputer', SimpleImputer(strategy='median')),
+                         ('standardscaler', StandardScaler()),
+                         ('selectkbest',
+                          SelectKBest(k=15,
+                                      score\_func=<function f\_regression at 0x000001BDFFB16598>)),
+                         ('linearregression', LinearRegression())])
+\end{Verbatim}
+            
+    \subsubsection{4.9.6 Assess performance on train and test
+data}\label{assess-performance-on-train-and-test-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{y\PYZus{}tr\PYZus{}pred} \PY{o}{=} \PY{n}{pipe15}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}te\PYZus{}pred} \PY{o}{=} \PY{n}{pipe15}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} (0.7924096060483825, 0.6376199973170795)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}tr\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}te\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} (9.211767769307114, 10.488246867294356)
+\end{Verbatim}
+            
+    You could keep going, trying different values of k, training a model,
+measuring performance on the test set, and then picking the model with
+the best test set performance. There's a fundamental problem with this
+approach: \emph{you're tuning the model to the arbitrary test set}! If
+you continue this way you'll end up with a model works well on the
+particular quirks of our test set \emph{but fails to generalize to new
+data}. The whole point of keeping a test set is for it to be a set of
+that new data, to check how well our model might perform on data it
+hasn't seen.
+
+The way around this is a technique called \emph{cross-validation}. You
+partition the training set into k folds, train our model on k-1 of those
+folds, and calculate performance on the fold not used in training. This
+procedure then cycles through k times with a different fold held back
+each time. Thus you end up building k models on k sets of data with k
+estimates of how the model performs on unseen data but without having to
+touch the test set.
+
+    \subsubsection{4.9.7 Assessing performance using
+cross-validation}\label{assessing-performance-using-cross-validation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{cv\PYZus{}results} \PY{o}{=} \PY{n}{cross\PYZus{}validate}\PY{p}{(}\PY{n}{pipe15}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{cv\PYZus{}scores} \PY{o}{=} \PY{n}{cv\PYZus{}results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{cv\PYZus{}scores}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:} array([0.63760862, 0.72831381, 0.74443537, 0.5487915 , 0.50441472])
+\end{Verbatim}
+            
+    Without using the same random state for initializing the CV folds, your
+actual numbers will be different.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cv\PYZus{}scores}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{cv\PYZus{}scores}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:} (0.6327128053007863, 0.09502487849877701)
+\end{Verbatim}
+            
+    These results highlight that assessing model performance in inherently
+open to variability. You'll get different results depending on the
+quirks of which points are in which fold. An advantage of this is that
+you can also obtain an estimate of the variability, or uncertainty, in
+your performance estimate.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cv\PYZus{}scores}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{cv\PYZus{}scores}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cv\PYZus{}scores}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{cv\PYZus{}scores}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:} array([0.44, 0.82])
+\end{Verbatim}
+            
+    \subsubsection{4.9.8 Hyperparameter search using
+GridSearchCV}\label{hyperparameter-search-using-gridsearchcv}
+
+    Pulling the above together, we have: * a pipeline that * imputes missing
+values * scales the data * selects the k best features * trains a linear
+regression model * a technique (cross-validation) for estimating model
+performance
+
+Now you want to use cross-validation for multiple values of k and use
+cross-validation to pick the value of k that gives the best performance.
+\texttt{make\_pipeline} automatically names each step as the lowercase
+name of the step and the parameters of the step are then accessed by
+appending a double underscore followed by the parameter name. You know
+the name of the step will be 'selectkbest' and you know the parameter is
+'k'.
+
+You can also list the names of all the parameters in a pipeline like
+this:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{c+c1}{\PYZsh{}Code task 18\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Call `pipe`\PYZsq{}s `get\PYZus{}params()` method to get a dict of available parameters and print their names}
+         \PY{c+c1}{\PYZsh{}using dict\PYZsq{}s `keys()` method}
+         \PY{n}{pipe}\PY{o}{.}\PY{n}{get\PYZus{}params}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}88}]:} dict\_keys(['memory', 'steps', 'verbose', 'simpleimputer', 'standardscaler', 'selectkbest', 'linearregression', 'simpleimputer\_\_add\_indicator', 'simpleimputer\_\_copy', 'simpleimputer\_\_fill\_value', 'simpleimputer\_\_missing\_values', 'simpleimputer\_\_strategy', 'simpleimputer\_\_verbose', 'standardscaler\_\_copy', 'standardscaler\_\_with\_mean', 'standardscaler\_\_with\_std', 'selectkbest\_\_k', 'selectkbest\_\_score\_func', 'linearregression\_\_copy\_X', 'linearregression\_\_fit\_intercept', 'linearregression\_\_n\_jobs', 'linearregression\_\_normalize', 'linearregression\_\_positive'])
+\end{Verbatim}
+            
+    The above can be particularly useful as your pipelines becomes more
+complex (you can even nest pipelines within pipelines).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{k} \PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{grid\PYZus{}params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{selectkbest\PYZus{}\PYZus{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{k}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    Now you have a range of \texttt{k} to investigate. Is 1 feature best? 2?
+3? 4? All of them? You could write a for loop and iterate over each
+possible value, doing all the housekeeping oyurselves to track the best
+value of k. But this is a common task so there's a built in function in
+\texttt{sklearn}. This is
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html}{\texttt{GridSearchCV}}.
+This takes the pipeline object, in fact it takes anything with a
+\texttt{.fit()} and \texttt{.predict()} method. In simple cases with no
+feature selection or imputation or feature scaling etc. you may see the
+classifier or regressor object itself directly passed into
+\texttt{GridSearchCV}. The other key input is the parameters and values
+to search over. Optional parameters include the cross-validation
+strategy and number of CPUs to use.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{lr\PYZus{}grid\PYZus{}cv} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{grid\PYZus{}params}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{lr\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:} GridSearchCV(cv=5,
+                      estimator=Pipeline(steps=[('simpleimputer',
+                                                 SimpleImputer(strategy='median')),
+                                                ('standardscaler', StandardScaler()),
+                                                ('selectkbest',
+                                                 SelectKBest(score\_func=<function f\_regression at 0x000001BDFFB16598>)),
+                                                ('linearregression',
+                                                 LinearRegression())]),
+                      n\_jobs=-1,
+                      param\_grid=\{'selectkbest\_\_k': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+                                                     12, 13, 14, 15, 16, 17, 18, 19, 20,
+                                                     21, 22, 23, 24, 25, 26, 27, 28, 29,
+                                                     30, {\ldots}]\})
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{score\PYZus{}mean} \PY{o}{=} \PY{n}{lr\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{score\PYZus{}std} \PY{o}{=} \PY{n}{lr\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{std\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{cv\PYZus{}k} \PY{o}{=} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{lr\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{param\PYZus{}selectkbest\PYZus{}\PYZus{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{c+c1}{\PYZsh{}Code task 19\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Print the `best\PYZus{}params\PYZus{}` attribute of `lr\PYZus{}grid\PYZus{}cv`}
+         \PY{n}{lr\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:} \{'selectkbest\_\_k': 8\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{c+c1}{\PYZsh{}Code task 20\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Assign the value of k from the above dict of `best\PYZus{}params\PYZus{}` and assign it to `best\PYZus{}k`}
+         \PY{n}{best\PYZus{}k} \PY{o}{=} \PY{n}{lr\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{selectkbest\PYZus{}\PYZus{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{errorbar}\PY{p}{(}\PY{n}{cv\PYZus{}k}\PY{p}{,} \PY{n}{score\PYZus{}mean}\PY{p}{,} \PY{n}{yerr}\PY{o}{=}\PY{n}{score\PYZus{}std}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{best\PYZus{}k}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV score (r\PYZhy{}squared)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pipeline mean CV score (error bars +/\PYZhy{} 1sd)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_179_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The above suggests a good value for k is 8. There was an initial rapid
+increase with k, followed by a slow decline. Also noticeable is the
+variance of the results greatly increase above k=8. As you increasingly
+overfit, expect greater swings in performance as different points move
+in and out of the train/test folds.
+
+    Which features were most useful? Step into your best model, shown below.
+Starting with the fitted grid search object, you get the best estimator,
+then the named step 'selectkbest', for which you can its
+\texttt{get\_support()} method for a logical mask of the features
+selected.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{n}{selected} \PY{o}{=} \PY{n}{lr\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{o}{.}\PY{n}{selectkbest}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Similarly, instead of using the 'selectkbest' named step, you can access
+the named step for the linear regression model and, from that, grab the
+model coefficients via its \texttt{coef\_} attribute:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{c+c1}{\PYZsh{}Code task 21\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Get the linear model coefficients from the `coef\PYZus{}` attribute and store in `coefs`,}
+         \PY{c+c1}{\PYZsh{}get the matching feature names from the column names of the dataframe,}
+         \PY{c+c1}{\PYZsh{}and display the results as a pandas Series with `coefs` as the values and `features` as the index,}
+         \PY{c+c1}{\PYZsh{}sorting the values in descending order}
+         \PY{n}{coefs} \PY{o}{=} \PY{n}{lr\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{o}{.}\PY{n}{linearregression}\PY{o}{.}\PY{n}{coef\PYZus{}}
+         \PY{n}{features} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{selected}\PY{p}{]}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{coefs}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{features}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}97}]:} vertical\_drop        10.767857
+         Snow Making\_ac        6.290074
+         total\_chairs          5.794156
+         fastQuads             5.745626
+         Runs                  5.370555
+         LongestRun\_mi         0.181814
+         trams                -4.142024
+         SkiableTerrain\_ac    -5.249780
+         dtype: float64
+\end{Verbatim}
+            
+    These results suggest that vertical drop is your biggest positive
+feature. This makes intuitive sense and is consistent with what you saw
+during the EDA work. Also, you see the area covered by snow making
+equipment is a strong positive as well. People like guaranteed skiing!
+The skiable terrain area is negatively associated with ticket price!
+This seems odd. People will pay less for larger resorts? There could be
+all manner of reasons for this. It could be an effect whereby larger
+resorts can host more visitors at any one time and so can charge less
+per ticket. As has been mentioned previously, the data are missing
+information about visitor numbers. Bear in mind, the coefficient for
+skiable terrain is negative \emph{for this model}. For example, if you
+kept the total number of chairs and fastQuads constant, but increased
+the skiable terrain extent, you might imagine the resort is worse off
+because the chairlift capacity is stretched thinner.
+
+    \subsection{4.10 Random Forest Model}\label{random-forest-model}
+
+    A model that can work very well in a lot of cases is the random forest.
+For regression, this is provided by \texttt{sklearn}'s
+\texttt{RandomForestRegressor} class.
+
+Time to stop the bad practice of repeatedly checking performance on the
+test split. Instead, go straight from defining the pipeline to assessing
+performance using cross-validation. \texttt{cross\_validate} will
+perform the fitting as part of the process. This uses the default
+settings for the random forest so you'll then proceed to investigate
+some different hyperparameters.
+
+    \subsubsection{4.10.1 Define the pipeline}\label{define-the-pipeline}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{c+c1}{\PYZsh{}Code task 22\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Define a pipeline comprising the steps:}
+         \PY{c+c1}{\PYZsh{}SimpleImputer() with a strategy of \PYZsq{}median\PYZsq{}}
+         \PY{c+c1}{\PYZsh{}StandardScaler(),}
+         \PY{c+c1}{\PYZsh{}and then RandomForestRegressor() with a random state of 47}
+         \PY{n}{RF\PYZus{}pipe} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}
+             \PY{n}{SimpleImputer}\PY{p}{(}\PY{n}{strategy}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{median}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{RandomForestRegressor}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{47}\PY{p}{)}
+         \PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{4.10.2 Fit and assess performance using
+cross-validation}\label{fit-and-assess-performance-using-cross-validation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{c+c1}{\PYZsh{}Code task 23\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}Call `cross\PYZus{}validate` to estimate the pipeline\PYZsq{}s performance.}
+          \PY{c+c1}{\PYZsh{}Pass it the random forest pipe object, `X\PYZus{}train` and `y\PYZus{}train`,}
+          \PY{c+c1}{\PYZsh{}and get it to use 5\PYZhy{}fold cross\PYZhy{}validation}
+          \PY{n}{rf\PYZus{}default\PYZus{}cv\PYZus{}results} \PY{o}{=} \PY{n}{cross\PYZus{}validate}\PY{p}{(}\PY{n}{RF\PYZus{}pipe}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{rf\PYZus{}cv\PYZus{}scores} \PY{o}{=} \PY{n}{rf\PYZus{}default\PYZus{}cv\PYZus{}results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{rf\PYZus{}cv\PYZus{}scores}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}101}]:} array([0.68168453, 0.80364275, 0.77803903, 0.6088032 , 0.62602249])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{rf\PYZus{}cv\PYZus{}scores}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{rf\PYZus{}cv\PYZus{}scores}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}102}]:} (0.6996383982492244, 0.07868448354957026)
+\end{Verbatim}
+            
+    \subsubsection{4.10.3 Hyperparameter search using
+GridSearchCV}\label{hyperparameter-search-using-gridsearchcv}
+
+    Random forest has a number of hyperparameters that can be explored,
+however here you'll limit yourselves to exploring some different values
+for the number of trees. You'll try it with and without feature scaling,
+and try both the mean and median as strategies for imputing missing
+values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{n\PYZus{}est} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{p}{)} \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{n}{start}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{stop}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{]}
+          \PY{n}{grid\PYZus{}params} \PY{o}{=} \PY{p}{\PYZob{}}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{randomforestregressor\PYZus{}\PYZus{}n\PYZus{}estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{n\PYZus{}est}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{standardscaler}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{k+kc}{None}\PY{p}{]}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{simpleimputer\PYZus{}\PYZus{}strategy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{median}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{p}{\PYZcb{}}
+          \PY{n}{grid\PYZus{}params}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:} \{'randomforestregressor\_\_n\_estimators': [10,
+            12,
+            16,
+            20,
+            26,
+            33,
+            42,
+            54,
+            69,
+            88,
+            112,
+            143,
+            183,
+            233,
+            297,
+            379,
+            483,
+            615,
+            784,
+            1000],
+           'standardscaler': [StandardScaler(), None],
+           'simpleimputer\_\_strategy': ['mean', 'median']\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{c+c1}{\PYZsh{}Code task 24\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}Call `GridSearchCV` with the random forest pipeline, passing in the above `grid\PYZus{}params`}
+          \PY{c+c1}{\PYZsh{}dict for parameters to evaluate, 5\PYZhy{}fold cross\PYZhy{}validation, and all available CPU cores (if desired)}
+          \PY{n}{rf\PYZus{}grid\PYZus{}cv} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{RF\PYZus{}pipe}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{grid\PYZus{}params}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{c+c1}{\PYZsh{}Code task 25\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}Now call the `GridSearchCV`\PYZsq{}s `fit()` method with `X\PYZus{}train` and `y\PYZus{}train` as arguments}
+          \PY{c+c1}{\PYZsh{}to actually start the grid search. This may take a minute or two.}
+          \PY{n}{rf\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}110}]:} GridSearchCV(cv=5,
+                       estimator=Pipeline(steps=[('simpleimputer',
+                                                  SimpleImputer(strategy='median')),
+                                                 ('standardscaler', StandardScaler()),
+                                                 ('randomforestregressor',
+                                                  RandomForestRegressor(random\_state=47))]),
+                       n\_jobs=-1,
+                       param\_grid=\{'randomforestregressor\_\_n\_estimators': [10, 12, 16, 20,
+                                                                           26, 33, 42, 54,
+                                                                           69, 88, 112,
+                                                                           143, 183, 233,
+                                                                           297, 379, 483,
+                                                                           615, 784,
+                                                                           1000],
+                                   'simpleimputer\_\_strategy': ['mean', 'median'],
+                                   'standardscaler': [StandardScaler(), None]\})
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{c+c1}{\PYZsh{}Code task 26\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}Print the best params (`best\PYZus{}params\PYZus{}` attribute) from the grid search}
+          \PY{n}{rf\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}111}]:} \{'randomforestregressor\_\_n\_estimators': 69,
+           'simpleimputer\_\_strategy': 'median',
+           'standardscaler': None\}
+\end{Verbatim}
+            
+    It looks like imputing with the median helps, but scaling the features
+doesn't.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{rf\PYZus{}best\PYZus{}cv\PYZus{}results} \PY{o}{=} \PY{n}{cross\PYZus{}validate}\PY{p}{(}\PY{n}{rf\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{rf\PYZus{}best\PYZus{}scores} \PY{o}{=} \PY{n}{rf\PYZus{}best\PYZus{}cv\PYZus{}results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{rf\PYZus{}best\PYZus{}scores}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:} array([0.68699557, 0.81671338, 0.76934331, 0.62158696, 0.66858528])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{rf\PYZus{}best\PYZus{}scores}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{rf\PYZus{}best\PYZus{}scores}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}113}]:} (0.7126449010338891, 0.07061960547565885)
+\end{Verbatim}
+            
+    You've marginally improved upon the default CV results. Random forest
+has many more hyperparameters you could tune, but we won't dive into
+that here.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{c+c1}{\PYZsh{}Code task 27\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}Plot a barplot of the random forest\PYZsq{}s feature importances,}
+          \PY{c+c1}{\PYZsh{}assigning the `feature\PYZus{}importances\PYZus{}` attribute of }
+          \PY{c+c1}{\PYZsh{}`rf\PYZus{}grid\PYZus{}cv.best\PYZus{}estimator\PYZus{}.named\PYZus{}steps.randomforestregressor` to the name `imps` to then}
+          \PY{c+c1}{\PYZsh{}create a pandas Series object of the feature importances, with the index given by the}
+          \PY{c+c1}{\PYZsh{}training data column names, sorting the values in descending order}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{imps} \PY{o}{=} \PY{n}{rf\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{o}{.}\PY{n}{randomforestregressor}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+          \PY{n}{rf\PYZus{}feat\PYZus{}imps} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{imps}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{rf\PYZus{}feat\PYZus{}imps}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best random forest regressor feature importances}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_204_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Encouragingly, the dominant top four features are in common with your
+linear model: * fastQuads * Runs * Snow Making\_ac * vertical\_drop
+
+    \subsection{4.11 Final Model Selection}\label{final-model-selection}
+
+    Time to select your final model to use for further business modeling! It
+would be good to revisit the above model selection; there is undoubtedly
+more that could be done to explore possible hyperparameters. It would
+also be worthwhile to investigate removing the least useful features.
+Gathering or calculating, and storing, features adds business cost and
+dependencies, so if features genuinely are not needed they should be
+removed. Building a simpler model with fewer features can also have the
+advantage of being easier to sell (and/or explain) to stakeholders.
+Certainly there seem to be four strong features here and so a model
+using only those would probably work well. However, you want to explore
+some different scenarios where other features vary so keep the fuller
+model for now. The business is waiting for this model and you have
+something that you have confidence in to be much better than guessing
+with the average price.
+
+Or, rather, you have two "somethings". You built a best linear model and
+a best random forest model. You need to finally choose between them. You
+can calculate the mean absolute error using cross-validation. Although
+\texttt{cross-validate} defaults to the \(R^2\)
+\href{https://scikit-learn.org/stable/modules/model_evaluation.html\#scoring}{metric
+for scoring} regression, you can specify the mean absolute error as an
+alternative via the \texttt{scoring} parameter.
+
+    \subsubsection{4.11.1 Linear regression model
+performance}\label{linear-regression-model-performance}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{c+c1}{\PYZsh{} \PYZsq{}neg\PYZus{}mean\PYZus{}absolute\PYZus{}error\PYZsq{} uses the (negative of) the mean absolute error}
+          \PY{n}{lr\PYZus{}neg\PYZus{}mae} \PY{o}{=} \PY{n}{cross\PYZus{}validate}\PY{p}{(}\PY{n}{lr\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} 
+                                      \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}absolute\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{lr\PYZus{}mae\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{o}{*} \PY{n}{lr\PYZus{}neg\PYZus{}mae}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{lr\PYZus{}mae\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{o}{*} \PY{n}{lr\PYZus{}neg\PYZus{}mae}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{lr\PYZus{}mae\PYZus{}mean}\PY{p}{,} \PY{n}{lr\PYZus{}mae\PYZus{}std}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}116}]:} (10.499032338015294, 1.622060897679966)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{lr\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}117}]:} 11.793465668669324
+\end{Verbatim}
+            
+    \subsubsection{4.11.2 Random forest regression model
+performance}\label{random-forest-regression-model-performance}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{rf\PYZus{}neg\PYZus{}mae} \PY{o}{=} \PY{n}{cross\PYZus{}validate}\PY{p}{(}\PY{n}{rf\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} 
+                                      \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}absolute\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{n}{rf\PYZus{}mae\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{o}{*} \PY{n}{rf\PYZus{}neg\PYZus{}mae}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{rf\PYZus{}mae\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{o}{*} \PY{n}{rf\PYZus{}neg\PYZus{}mae}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{rf\PYZus{}mae\PYZus{}mean}\PY{p}{,} \PY{n}{rf\PYZus{}mae\PYZus{}std}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}119}]:} (9.651183457528996, 1.4940374628899329)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{rf\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}120}]:} 9.5253256504278
+\end{Verbatim}
+            
+    \subsubsection{4.11.3 Conclusion}\label{conclusion}
+
+    The random forest model has a lower cross-validation mean absolute error
+by almost \textbackslash{}\$1. It also exhibits less variability.
+Verifying performance on the test set produces performance consistent
+with the cross-validation results.
+
+    \subsection{4.12 Data quantity
+assessment}\label{data-quantity-assessment}
+
+    Finally, you need to advise the business whether it needs to undertake
+further data collection. Would more data be useful? We're often led to
+believe more data is always good, but gathering data invariably has a
+cost associated with it. Assess this trade off by seeing how performance
+varies with differing data set sizes. The \texttt{learning\_curve}
+function does this conveniently.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{n}{fractions} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{25}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{35}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{4}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{45}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{6}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{75}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}
+          \PY{n}{train\PYZus{}size}\PY{p}{,} \PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{test\PYZus{}scores} \PY{o}{=} \PY{n}{learning\PYZus{}curve}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{train\PYZus{}sizes}\PY{o}{=}\PY{n}{fractions}\PY{p}{)}
+          \PY{n}{train\PYZus{}scores\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{train\PYZus{}scores\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{test\PYZus{}scores\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{test\PYZus{}scores\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{errorbar}\PY{p}{(}\PY{n}{train\PYZus{}size}\PY{p}{,} \PY{n}{test\PYZus{}scores\PYZus{}mean}\PY{p}{,} \PY{n}{yerr}\PY{o}{=}\PY{n}{test\PYZus{}scores\PYZus{}std}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training set size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cross\PYZhy{}validation score as training set size increases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_221_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    This shows that you seem to have plenty of data. There's an initial
+rapid improvement in model scores as one would expect, but it's
+essentially levelled off by around a sample size of 40-50.
+
+    \subsection{4.13 Save best model object from
+pipeline}\label{save-best-model-object-from-pipeline}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{c+c1}{\PYZsh{}Code task 28\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}This may not be \PYZdq{}production grade ML deployment\PYZdq{} practice, but adding some basic}
+          \PY{c+c1}{\PYZsh{}information to your saved models can save your bacon in development.}
+          \PY{c+c1}{\PYZsh{}Just what version model have you just loaded to reuse? What version of `sklearn`}
+          \PY{c+c1}{\PYZsh{}created it? When did you make it?}
+          \PY{c+c1}{\PYZsh{}Assign the pandas version number (`pd.\PYZus{}\PYZus{}version\PYZus{}\PYZus{}`) to the `pandas\PYZus{}version` attribute,}
+          \PY{c+c1}{\PYZsh{}the numpy version (`np.\PYZus{}\PYZus{}version\PYZus{}\PYZus{}`) to the `numpy\PYZus{}version` attribute,}
+          \PY{c+c1}{\PYZsh{}the sklearn version (`sklearn\PYZus{}version`) to the `sklearn\PYZus{}version` attribute,}
+          \PY{c+c1}{\PYZsh{}and the current datetime (`datetime.datetime.now()`) to the `build\PYZus{}datetime` attribute}
+          \PY{c+c1}{\PYZsh{}Let\PYZsq{}s call this model version \PYZsq{}1.0\PYZsq{}}
+          \PY{n}{best\PYZus{}model} \PY{o}{=} \PY{n}{rf\PYZus{}grid\PYZus{}cv}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+          \PY{n}{best\PYZus{}model}\PY{o}{.}\PY{n}{version} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1.0}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{best\PYZus{}model}\PY{o}{.}\PY{n}{pandas\PYZus{}version} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}
+          \PY{n}{best\PYZus{}model}\PY{o}{.}\PY{n}{numpy\PYZus{}version} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}
+          \PY{n}{best\PYZus{}model}\PY{o}{.}\PY{n}{sklearn\PYZus{}version} \PY{o}{=} \PY{n}{sklearn\PYZus{}version}
+          \PY{n}{best\PYZus{}model}\PY{o}{.}\PY{n}{X\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+          \PY{n}{best\PYZus{}model}\PY{o}{.}\PY{n}{build\PYZus{}datetime} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{c+c1}{\PYZsh{} save the model}
+          
+          \PY{n}{modelpath} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../models}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{save\PYZus{}file}\PY{p}{(}\PY{n}{best\PYZus{}model}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ski\PYZus{}resort\PYZus{}pricing\PYZus{}model.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{modelpath}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Directory ../models was created.
+Writing file.  "../models\textbackslash{}ski\_resort\_pricing\_model.pkl"
+
+    \end{Verbatim}
+
+    \subsection{4.14 Summary}\label{summary}
+
+    \textbf{Q: 1} Write a summary of the work in this notebook. Capture the
+fact that you gained a baseline idea of performance by simply taking the
+average price and how well that did. Then highlight that you built a
+linear model and the features that found. Comment on the estimate of its
+performance from cross-validation and whether its performance on the
+test split was consistent with this estimate. Also highlight that a
+random forest regressor was tried, what preprocessing steps were found
+to be best, and again what its estimated performance via
+cross-validation was and whether its performance on the test set was
+consistent with that. State which model you have decided to use going
+forwards and why. This summary should provide a quick overview for
+someone wanting to know quickly why the given model was chosen for the
+next part of the business problem to help guide important business
+decisions.
+
+    \textbf{A: 1} Your answer here
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
